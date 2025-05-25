@@ -26,13 +26,8 @@ usermod -aG sudo $username
 echo "setup for domjudge"
 # setup for domjudge
 apt update && apt upgrade -y
-apt install nginx snapd vim zsh ca-certificates curl wget update-grub -y
+apt install nginx  vim zsh ca-certificates curl wget update-grub -y
 
-echo "Check if snap installed"
-snap install hello-world
-checkValid $?
-
-echo "FINISH"
 
 echo "nameserver 1.1.1.1
 nameserver 178.22.122.100
