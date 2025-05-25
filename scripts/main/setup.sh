@@ -31,8 +31,11 @@ apt install nginx snapd vim zsh ca-certificates curl wget update-grub -y
 echo "Check if snap installed"
 snap install hello-world
 checkValid $?
+
 echo "FINISH"
+
 echo "nameserver 1.1.1.1
+nameserver 178.22.122.100
 nameserver 178.22.122.100
 nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
@@ -108,7 +111,9 @@ bash -c 'cat > /etc/docker/config/daemon.json <<EOF
   "registry-mirrors": ["https://docker.arvancloud.ir"]
 }
 EOF'
+
 echo "FINISH"
+
 sudo systemctl restart docker.service
 while [ true ]
 do
