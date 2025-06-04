@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+  prefixF="$1"
+  for file in *; do
+    [ -f "$file" ] || continue 
+    base="${file%.*}"           # File name without extension
+    ext="${file##*.}"           # Extract extension
+    if [ "$file" = "$ext" ]; then
+     mv "$file" "${file}.${prefixF}"
+    else
+     mv "$file" "${base}.${prefixF}"
+    fi
+  done
+

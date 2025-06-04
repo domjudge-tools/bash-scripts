@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# This script will zip every directory
+set -e 
+
+silent() {
+  "$@" &>/dev/null
+}
+
+
+echo "This script run in $(pwd)"
+read -p "this is ok? y/N " letsgo
+if [ $letsgo = "y" ];then
+  echo ""
+  echo "Lets go"
+  echo ""
+else 
+  exit 1
+fi
+
+list=$(find ./ -maxdepth 1 -mindepth 1 -type d | awk -F'./' '{print $2}') 
+
+for item in $list; do
+  echo $item
+  silent pushd $item 
+  # remove the useless directory
+  silent zip -r ${item}.zip ./*
+  silent mv ${item}.zip ../
+  echo "Finish the $item"
+  silent popd
+done 
