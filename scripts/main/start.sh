@@ -5,8 +5,8 @@ set -e
 
 # Set Electro DNS servers in /etc/resolv.conf
 echo "Setting DNS servers..."
-echo "nameserver 10.202.10.10" > /etc/resolv.conf
-echo "nameserver 10.202.10.11" >> /etc/resolv.conf
+#echo "nameserver 10.202.10.10" > /etc/resolv.conf
+#echo "nameserver 10.202.10.11" >> /etc/resolv.conf
 
 # File to store generated passwords
 FilePath="/passwords_domjudge.txt"
@@ -97,7 +97,8 @@ echo "Starting judge host containers..."
 for (( c=0; c<$judgehost_number; c++ ))
 do
   docker run -dit --privileged \
-    -v /sys/fs/cgroup:/sys/fs/cgroup \
+    -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
+    --cgroupns=host
     --name judgehost-$c \
     --link domserver:domserver \
     --hostname judgedaemon-$c \
