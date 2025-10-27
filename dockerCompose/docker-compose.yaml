@@ -1,0 +1,65 @@
+# docker-compose.yml
+
+networks:
+  domjudge:
+    name: domjudge
+
+    #mariadb
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    networks:
+      - domjudge
+    ports:
+      - 13306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - max-connections=1000 
+      - innodb-log-file-size=2G
+      - innodb_snapshot_isolation=OFF
+      - max-allowed-packet=1G
+    command: --max-connections=1000
+
+
+      #domserver
+  domserver:
+    container_name: domserver
+    image: domjudge/domserver:latest
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    networks:
+      - domjudge
+    ports:
+      - 12345:80
+    depends_on:
+      - mariadb
+    environment:
+      - CONTAINER_TIMEZONE=Asia/Tehran
+      - MYSQL_HOST=mariadb
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+
+    
+      #judgehost-0
+  judgehost-0:
+    container_name: judgehost-0
+    image: domjudge/judgehost:latest
+    privileged: true
+    hostname: judgedaemon-0
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    networks:
+      - domjudge
+    depends_on:
+      - domserver
+    environment:
+      - DAEMON_ID=0
+      - JUDGEDAEMON_PASSWORD=${DOMSERVER_API_PASSWORD}
+      - CONTAINER_TIMEZONE="Asia/Tehran"
+      - cgroupns=host
