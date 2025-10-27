@@ -45,6 +45,7 @@ docker run -dit --restart unless-stopped --name dj-mariadb \
   -p 13306:3306 mariadb \
   --max-connections=1000 \
   --innodb-log-file-size=2G \
+  --innodb_snapshot_isolation=OFF \
   --max-allowed-packet=1G
 
 # Output MySQL passwords and write them to the file

@@ -12,7 +12,7 @@ fi
 echo "Should run In Ubuntu-server Distro"
 sleep 5
 # this parameters for update the grub for cgroup v1
-PARAMETERS="systemd.unified_cgroup_hierarchy=0 cgroup_enable=memory swapaccount=1"
+PARAMETERS="cgroup_enable=memory swapaccount=1"
 
 read -p "enter the username: " username
 read -p "enter the password for user $username : " password
