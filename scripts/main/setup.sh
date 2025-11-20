@@ -29,12 +29,7 @@ apt update && apt upgrade -y
 apt install nginx  vim zsh ca-certificates curl wget update-grub -y
 
 
-echo "nameserver 1.1.1.1
-nameserver 178.22.122.100
-nameserver 178.22.122.100
-nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
-
 sudo apt-get update
 sudo apt install ca-certificates curl gnupg lsb-release
 # select the ubunto version
@@ -87,27 +82,6 @@ echo "FINISH"
 
 groupadd docker
 usermod -aG docker $username
-
-
-## TODO
-# installing aws and config that!
-# this data going to public repo!!!!!
-# docker login!
-# add secret file in gitIgnore
-
-# pull domjudge_server domjudge_judgehost mariadb
-# Also we can use AbrArvan insted of focker
-# Use AbrArvan for pulling img
-
-echo "Use AbrArvan for pulling img"
-bash -c 'cat > /etc/docker/config/daemon.json <<EOF
-{
-  "insecure-registries" : ["https://docker.arvancloud.ir"],
-  "registry-mirrors": ["https://docker.arvancloud.ir"]
-}
-EOF'
-
-echo "FINISH"
 
 sudo systemctl restart docker.service
 while [ true ]
