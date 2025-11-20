@@ -99,7 +99,7 @@ for (( c=0; c<$judgehost_number; c++ ))
 do
   docker run -dit --privileged \
     -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
-    --cgroupns=host
+    --cgroupns=host \ 
     --name judgehost-$c \
     --link domserver:domserver \
     --hostname judgedaemon-$c \

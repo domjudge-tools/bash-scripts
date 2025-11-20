@@ -23,6 +23,8 @@ services:
       - innodb_snapshot_isolation=OFF
       - max-allowed-packet=1G
     command: --max-connections=1000
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
 
 
       #domserver
@@ -44,6 +46,7 @@ services:
       - MYSQL_USER=${MARIADB_USER}
       - MYSQL_PASSWORD=${MARIADB_PASSWORD}
       - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - cgroup=host
 
     
       #judgehost-0
