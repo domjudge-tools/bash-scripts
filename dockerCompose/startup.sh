@@ -6,12 +6,14 @@ if [ ! -f .env ]; then
   echo "Generating .env file..."
   cat <<EOF > .env
 MARIADB_ROOT_PASSWORD=$(openssl rand -hex 16)
+MARIADB_DATABASE=domjudge
+
 MARIADB_USER=domjudge
 MARIADB_PASSWORD=$(openssl rand -hex 16)
-MARIADB_DATABASE=domjudge
-DOMJUDGE_ADMIN_USER=admin
-DOMJUDGE_ADMIN_PASS=$(openssl rand -hex 16)
+
 DOMSERVER_API_PASSWORD=
+
+DOMJUDGE_ADMIN_USER=admin
 EOF
   echo ".env created."
 else
@@ -46,7 +48,7 @@ else
   echo "DOMSERVER_API_PASSWORD=${REST_SECRET}" >> .env
 fi
 
-echo "DOMSERVERF_ADMIN_PASSWORD=${admin_password}" >> .env
+echo "DOMJUDGE_ADMIN_PASS=${admin_password}" >> .env
 
 echo "Updated .env with DOMSERVER_API_PASSWORD."
 

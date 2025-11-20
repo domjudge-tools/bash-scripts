@@ -56,6 +56,8 @@ services:
     container_name: judgehost-0
     image: domjudge/judgehost:latest
     privileged: true
+    cgroup: host
+    pid: "host"
     hostname: judgedaemon-0
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup
@@ -67,4 +69,4 @@ services:
       - DAEMON_ID=0
       - JUDGEDAEMON_PASSWORD=${DOMSERVER_API_PASSWORD}
       - CONTAINER_TIMEZONE="Asia/Tehran"
-      - cgroupns=host
+      #- DOMSERVER_BASEURL=http://domserver:12345
