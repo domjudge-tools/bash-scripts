@@ -18,11 +18,11 @@ services:
       - MYSQL_USER=${MARIADB_USER}
       - MYSQL_PASSWORD=${MARIADB_PASSWORD}
       - MYSQL_DATABASE=${MARIADB_DATABASE}
-      - max-connections=1000 
-      - innodb-log-file-size=2G
-      - innodb_snapshot_isolation=OFF
-      - max-allowed-packet=1G
-    command: --max-connections=1000
+    command: >
+        --max-connections=1000
+        --innodb-log-file-size=2G
+        --max-allowed-packet=1G
+        --innodb-snapshot-isolation=OFF
     volumes:
       - ./mariadb_data:/var/lib/mysql
 
@@ -33,6 +33,8 @@ services:
     image: domjudge/domserver:latest
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    tty: true
+    stdin_open: true
     networks:
       - domjudge
     ports:
