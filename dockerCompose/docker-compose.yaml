@@ -50,6 +50,30 @@ services:
       - MYSQL_DATABASE=${MARIADB_DATABASE}
       - cgroup=host
 
+      #domserver-shadow
+  domserver-shadow:
+    container_name: domserver-shadow
+    image: domjudge/domserver:9.0.0
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    tty: true
+    stdin_open: true
+    networks:
+      - domjudge
+    ports:
+      - 12346:80
+    depends_on:
+      - mariadb
+    environment:
+      - CONTAINER_TIMEZONE=Asia/Tehran
+      - MYSQL_HOST=mariadb
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - cgroup=host
+
+
     
       #judgehost-0
   judgehost-0:
