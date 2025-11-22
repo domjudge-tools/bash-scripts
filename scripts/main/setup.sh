@@ -94,9 +94,9 @@ do
 done
 
 checkValid $?
-docker pull mariadb 
-docker pull domjudge/domserver:latest 
-docker pull domjudge/judgehost:latest
+docker pull mariadb:latest 
+docker pull domjudge/domserver:9.0.0
+docker pull domjudge/judgehost:9.0.0
 
 # Deetc/default/grub /etc/default/grub.bak
 # Check if the GRUB_CMDLINE_LINUX line exists

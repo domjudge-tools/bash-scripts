@@ -71,7 +71,7 @@ docker run -dit \
   -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \
   -p $domserver_port:80 \
   --name domserver \
-  domjudge/domserver:latest
+  domjudge/domserver:9.0.0
 
 # Wait for DOMjudge server to be ready
 echo "Waiting for DOMjudge server to be ready..."
@@ -102,7 +102,7 @@ do
     -e CONTAINER_TIMEZONE="Asia/Tehran" \
     -e DAEMON_ID=$c \
     -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
-    domjudge/judgehost:latest
+    domjudge/judgehost:9.0.0
       echo "Judge host $((c+1)) started."
 done
 #--DOMSERVER_BASEURL=http://domserver:80

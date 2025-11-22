@@ -30,7 +30,7 @@ services:
       #domserver
   domserver:
     container_name: domserver
-    image: domjudge/domserver:latest
+    image: domjudge/domserver:9.0.0
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     tty: true
@@ -54,7 +54,7 @@ services:
       #judgehost-0
   judgehost-0:
     container_name: judgehost-0
-    image: domjudge/judgehost:latest
+    image: domjudge/judgehost:9.0.0
     privileged: true
     cgroup: host
     pid: "host"
