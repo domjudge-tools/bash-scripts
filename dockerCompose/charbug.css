@@ -1,0 +1,280 @@
+/* custom-theme.css – Parchment-style light theme for DOMjudge (Bootstrap 5 compatible) */
+/* Place this file in web/public/css/ (or your installation's public css directory) */
+/* After adding the file, clear the Symfony cache: sudo -u domjudge php /path/to/domjudge/webapp/bin/console cache:clear */
+
+img[alt="DOMjudge"], #djlogo {
+    width : 18rem !important;
+    height : auto;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Your exact provided colour palette */
+  --background: #f5ead5;
+  --foreground: #1e3a5f;
+  --card: #f5efe0;
+  --card-foreground: #1e3a5f;
+  --popover: #f5efe0;
+  --popover-foreground: #1e3a5f;
+  --primary: #1e3a5f;
+  --primary-foreground: #fff;
+  --secondary: #476e97;
+  --secondary-foreground: #fff;
+  --muted: #f5ead5;
+  --muted-foreground: #1e3a5f;
+  --accent: #c85a54;
+  --accent-foreground: #fff;
+  --gold: #d4a855;
+  --destructive: #c85a54;
+  --destructive-foreground: #fff;
+  --border: #1e3a5f;
+  --input: #f5efe0;
+  --ring: #476e97;
+  --radius: .5rem;
+
+  /* Chart colours (kept exactly as you supplied – useful if DOMjudge ever adds Chart.js components) */
+  --chart-1: oklch(64.6% .222 41.116);
+  --chart-2: oklch(60% .118 184.704);
+  --chart-3: oklch(39.8% .07 227.392);
+  --chart-4: oklch(82.8% .189 84.429);
+  --chart-5: oklch(76.9% .188 70.08);
+
+  /* Sidebar colours (dark accent – kept for completeness, even though DOMjudge has no sidebar) */
+  --sidebar: oklch(22% .03 245);
+  --sidebar-foreground: oklch(92% .02 75);
+  --sidebar-primary: oklch(52% .04 235);
+  --sidebar-primary-foreground: oklch(92% .02 75);
+  --sidebar-accent: oklch(25% .04 245);
+  --sidebar-accent-foreground: oklch(92% .02 75);
+  --sidebar-border: oklch(32% .03 245);
+  --sidebar-ring: oklch(52% .04 235);
+
+  /* ==== Bootstrap 5 variable mappings (this is what actually what makes the theme work) ==== */
+  /*--bs-body-bg: var(--background); */
+  --bs-body-color: var(--foreground);
+  --bs-primary: var(--primary);
+  --bs-primary-rgb: 30, 58, 95;
+  --bs-primary-text: var(--primary-foreground);
+  --bs-secondary: var(--secondary);
+  --bs-secondary-rgb: 71, 110, 151;
+  --bs-success: var(--gold);
+  --bs-success-rgb: 212, 168, 85;
+  --bs-danger: var(--destructive);
+  --bs-danger-rgb: 200, 90, 84;
+  --bs-info: var(--secondary);
+  --bs-warning: var(--accent);
+  --bs-light: var(--card);
+  --bs-dark: var(--primary);
+
+  --bs-card-bg: var(--card);
+  --bs-card-cap-bg: var(--card);
+  --bs-border-color: var(--border);
+  --bs-border-radius: var(--radius);
+  --bs-link-color: var(--secondary);
+  --bs-link-hover-color: var(--primary);
+}
+
+/* Force body colours (Bootstrap already respects the variables, but this guarantees it) */
+body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+/* Cards & popovers */
+.card,
+.popover,
+.modal-content,
+.alert,
+.list-group-item {
+  background-color: var(--card) !important;
+  color: var(--card-foreground) !important;
+  border-color: var(--border);
+  border-radius: var(--radius);
+}
+
+/* Tables – slightly lighter stripes for readability on parchment background */
+.table {
+  --bs-table-bg: var(--card);
+  --bs-table-striped-bg: rgba(30, 58, 95, 0.05);
+  --bs-table-hover-bg: rgba(30, 58, 95, 0.1);
+  --bs-table-border-color: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Forms & inputs – use the exact --input colour you defined */
+.form-control,
+.form-select,
+.input-group-text,
+.form-check-input {
+  background-color: var(--input);
+  color: var(--foreground);
+  border-color: var(--border);
+  border-radius: var(--radius);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 .25rem color-mix(in oklch, var(--ring) 25%, transparent);
+}
+
+/* Buttons – ensure foreground colours are correct */
+.btn-primary {
+  --bs-btn-color: var(--primary-foreground);
+  --bs-btn-hover-bg: oklch(28% .09 245); /* slightly darker navy */
+  --bs-btn-active-bg: oklch(25% .09 245);
+}
+
+.btn-secondary {
+  --bs-btn-color: var(--secondary-foreground);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary);
+  --bs-btn-hover-color: var(--primary-foreground);
+}
+
+
+.scoreboard .desktop-scoreboard .scoreboard_jury {
+    background-color : white !important;
+}
+.navbar-toggler {
+	background-color :var(--background) !important;
+}
+
+.navbar {
+    background-color : rgb(33,37,41) !important;
+    --bs-navbar-color: rgba(255, 255, 255, 0.55) !important;
+    --bs-navbar-hover-color: rgba(255, 255, 255, 0.75) !important;
+    --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25) !important;
+    --bs-navbar-active-color: #fff !important;
+    --bs-navbar-brand-color: #fff !important;
+    --bs-navbar-brand-hover-color: #fff !important;
+    --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.scoreheader th {
+    background : #f5ddb0;
+}
+
+.cl_FFFFFF {
+    background : transparent:
+}
+
+.sortorderswitch td {
+    background-color : transparent;
+}
+
+/* Navbar – dark navy header with gold accent line 
+.navbar {
+  background-color: var(--primary) !important;
+  border-bottom: 3px solid var(--gold);
+}
+
+/*
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+}
+navbar {
+    background-color : rgb(33,37,41)
+}
+
+/*
+.navbar .nav-link:hover,
+.navbar .nav-link.active,
+.navbar .navbar-brand:hover {
+  color: var(--gold) !important;
+}
+
+/* Scoreboard specific overrides (correct = gold, wrong = red, pending = secondary blue) */
+/*.scorecorrect { background-color: var(--gold) !important; color: #1e1e1e !important; font-weight: bold; }
+.scorewrong,
+.scorewa { background-color: var(--destructive) !important; color: #fff !important; }
+.scorepending,
+.scorequeue { background-color: var(--secondary) !important; color: #fff !important; }
+.scorefirst { background-color: var(--gold) !important; color: #1e1e1e !important; }
+
+/* Code blocks & preformatted text */
+pre,
+code,
+code,
+kbd,
+samp {
+  background-color: #ffffff !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--foreground);
+}
+
+/* General border radius & borders */
+.border,
+.btn,
+.card,
+.modal-content,
+.table,
+.form-control,
+.dropdown-menu,
+.toast {
+  border-radius: var(--radius) !important;
+  border-color: var(--border);
+}
+
+/* Optional: subtle shadow on cards for depth */
+.card,
+.modal-content {
+  box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
+}
+
+
+
+/* custom-theme-colors-only.css – Pure colour adjustments for your parchment theme */
+/* Only colours are modified; no changes to font sizes, padding, margins, borders, shadows, hover effects, or layout */
+/* Replace or overwrite your existing custom CSS file with this version */
+
+:root {
+  color-scheme: light;
+
+  /* Your exact colour palette */
+  --background: #f5ead5;
+  --foreground: #1e3a5f;
+  --card: #f5efe0;
+  --card-foreground: #1e3a5f;
+  --primary: #1e3a5f;
+  --primary-foreground: #fff;
+  --secondary: #476e97;
+  --secondary-foreground: #fff;
+  --accent: #c85a54;
+  --gold: #d4a855;
+  --destructive: #c85a54;
+  --border: #1e3a5f;
+  --input: #f5efe0;
+  --ring: #476e97;
+  --radius: .5rem;
+
+  /* Bootstrap 5 colour mappings */
+  --bs-body-bg: var(--background);
+  --bs-body-color: var(--foreground);
+  --bs-primary: var(--primary);
+  --bs-primary-rgb: 30, 58, 95;
+  --bs-secondary: var(--secondary);
+  --bs-success: var(--gold);
+  --bs-danger: var(--destructive);
+  --bs-card-bg: var(--card);
+  --bs-border-color: var(--border);
+  --bs-link-color: var(--secondary);
+}
+
+body {
+    padding-bottom : 0;
+}
+
+
+tbody tr td {
+    background-color : transparent !important;
+}

@@ -33,6 +33,8 @@ services:
     image: domjudge/domserver:9.0.0
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - ./custom/css:/opt/domjudge/domserver/webapp/public/css/custom/
+      - ./custom/logo:/opt/domjudge/domserver/webapp/public/images/
     tty: true
     stdin_open: true
     networks:
@@ -48,31 +50,30 @@ services:
       - MYSQL_USER=${MARIADB_USER}
       - MYSQL_PASSWORD=${MARIADB_PASSWORD}
       - MYSQL_DATABASE=${MARIADB_DATABASE}
-      - cgroup=host
+      - DJ_DB_INSTALL_BARE=0
 
       #domserver-shadow
-  domserver-shadow:
-    container_name: domserver-shadow
-    image: domjudge/domserver:9.0.0
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    tty: true
-    stdin_open: true
-    networks:
-      - domjudge
-    ports:
-      - 12346:80
-    depends_on:
-      - mariadb
-    environment:
-      - CONTAINER_TIMEZONE=Asia/Tehran
-      - MYSQL_HOST=mariadb
-      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MYSQL_USER=${MARIADB_USER}
-      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
-      - MYSQL_DATABASE=${MARIADB_DATABASE}
-      - cgroup=host
-
+#  domserver-shadow:
+#    container_name: domserver-shadow
+#    image: domjudge/domserver:9.0.0
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+#    tty: true
+#    stdin_open: true
+#    networks:
+#      - domjudge
+#    ports:
+#      - 12346:80
+#    depends_on:
+#      - mariadb
+#    environment:
+#      - CONTAINER_TIMEZONE=Asia/Tehran
+#      - MYSQL_HOST=mariadb
+#      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+#      - MYSQL_USER=${MARIADB_USER}
+#      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+#      - MYSQL_DATABASE=${MARIADB_DATABASE}
+#
 
     
       #judgehost-0
