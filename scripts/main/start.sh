@@ -3,10 +3,6 @@
 
 set -e
 
-# Set Electro DNS servers in /etc/resolv.conf
-echo "Setting DNS servers..."
-echo "nameserver 10.202.10.10" > /etc/resolv.conf
-echo "nameserver 10.202.10.11" >> /etc/resolv.conf
 
 # File to store generated passwords
 FilePath="/passwords_domjudge.txt"
@@ -45,6 +41,7 @@ docker run -dit --restart unless-stopped --name dj-mariadb \
   -p 13306:3306 mariadb \
   --max-connections=1000 \
   --innodb-log-file-size=2G \
+  --innodb_snapshot_isolation=OFF \
   --max-allowed-packet=1G
 
 # Output MySQL passwords and write them to the file
@@ -74,7 +71,7 @@ docker run -dit \
   -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \
   -p $domserver_port:80 \
   --name domserver \
-  domjudge/domserver:latest
+  domjudge/domserver:9.0.0
 
 # Wait for DOMjudge server to be ready
 echo "Waiting for DOMjudge server to be ready..."
@@ -98,15 +95,17 @@ for (( c=0; c<$judgehost_number; c++ ))
 do
   docker run -dit --privileged \
     -v /sys/fs/cgroup:/sys/fs/cgroup \
+    --cgroupns=host \
     --name judgehost-$c \
     --link domserver:domserver \
     --hostname judgedaemon-$c \
     -e CONTAINER_TIMEZONE="Asia/Tehran" \
     -e DAEMON_ID=$c \
     -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
-    domjudge/judgehost:latest
+    domjudge/judgehost:9.0.0
       echo "Judge host $((c+1)) started."
 done
+#--DOMSERVER_BASEURL=http://domserver:80
 
 echo "" 
 echo "Setup complete. All containers are up and running."

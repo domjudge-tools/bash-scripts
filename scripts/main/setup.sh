@@ -12,7 +12,7 @@ fi
 echo "Should run In Ubuntu-server Distro"
 sleep 5
 # this parameters for update the grub for cgroup v1
-PARAMETERS="systemd.unified_cgroup_hierarchy=0 cgroup_enable=memory swapaccount=1"
+PARAMETERS="cgroup_enable=memory swapaccount=1"
 
 read -p "enter the username: " username
 read -p "enter the password for user $username : " password
@@ -29,12 +29,7 @@ apt update && apt upgrade -y
 apt install nginx  vim zsh ca-certificates curl wget update-grub -y
 
 
-echo "nameserver 1.1.1.1
-nameserver 178.22.122.100
-nameserver 178.22.122.100
-nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
-
 sudo apt-get update
 sudo apt install ca-certificates curl gnupg lsb-release
 # select the ubunto version
@@ -88,27 +83,6 @@ echo "FINISH"
 groupadd docker
 usermod -aG docker $username
 
-
-## TODO
-# installing aws and config that!
-# this data going to public repo!!!!!
-# docker login!
-# add secret file in gitIgnore
-
-# pull domjudge_server domjudge_judgehost mariadb
-# Also we can use AbrArvan insted of focker
-# Use AbrArvan for pulling img
-
-echo "Use AbrArvan for pulling img"
-bash -c 'cat > /etc/docker/config/daemon.json <<EOF
-{
-  "insecure-registries" : ["https://docker.arvancloud.ir"],
-  "registry-mirrors": ["https://docker.arvancloud.ir"]
-}
-EOF'
-
-echo "FINISH"
-
 sudo systemctl restart docker.service
 while [ true ]
 do
@@ -120,9 +94,9 @@ do
 done
 
 checkValid $?
-docker pull mariadb 
-docker pull domjudge/domserver:latest 
-docker pull domjudge/judgehost:latest
+docker pull mariadb:latest 
+docker pull domjudge/domserver:9.0.0
+docker pull domjudge/judgehost:9.0.0
 
 # Deetc/default/grub /etc/default/grub.bak
 # Check if the GRUB_CMDLINE_LINUX line exists

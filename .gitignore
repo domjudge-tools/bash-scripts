@@ -2,4 +2,6 @@
 updated_teams.yaml
 bcpcAcc.yaml
 team.json
-
+dockerCompose/mariadb_data
+dockerCompose/.env
+dockerCompose/custom
